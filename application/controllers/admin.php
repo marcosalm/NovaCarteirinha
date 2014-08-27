@@ -2,12 +2,10 @@
 
 class Admin extends CI_Controller 
 {
-	/* User Controller
-	 * This class handles user area, if user successfully logged in.
-	 * always check the user session when this class initialized.
+	/* Admin Controller
 	 *
-	 * @author	Aditya Nursyahbani
-	 * @link	http://aditya-nursyahbani.com/
+	 * @author	Marcos Almeida
+	 * @link	http://uvv.br
 	*/
 	public function __construct(){
 		parent::__construct();
@@ -16,6 +14,8 @@ class Admin extends CI_Controller
 
 	public function index(){
 		$data['content'] = 'admin';
+		$data['page'] = 'admin';
+		
 		$this->load->view('template/index', $data);
 	}
 	
@@ -33,6 +33,8 @@ class Admin extends CI_Controller
 			redirect('login');		
 		}		
 	}	
+	
+	
 }
 /* End of file user.php */
 /* Location: ./application/controllers/user.php */

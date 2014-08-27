@@ -86,6 +86,8 @@ class Login extends CI_Controller {
 		$this->session->sess_destroy();
 		$this->index();
 	}
+	
+	
 }
 
 /* End of file login.php */

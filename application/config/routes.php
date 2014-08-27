@@ -41,6 +41,10 @@
 $route['admin/logout'] = "login/logout";
 $route['admin/detail'] = "admin/view_account";
 $route['admin'] = "admin";
+$route['admin/search'] = "search/student_search";
+
+$route['admin/pendencia/error'] = "pendencia/dataTableError";
+$route['pendencia'] = "pendencia";
 
 $route['signout'] = "login/logout";
 

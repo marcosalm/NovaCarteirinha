@@ -110,3 +110,76 @@ $(document).ready(function() {
         $('.input-group #search_param').val(param);
     });
 });
+
+
+
+
+ var oTable
+ function fnFormatDetails ( nTr )
+ {
+  var aData = oTable.fnGetData( nTr );
+
+  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+  sOut += '<tr><td>'+aData['extra']+'</td></tr>';
+  sOut += '</table>';
+
+  return sOut;
+}
+
+
+$(document).ready(function() {
+  oTable = $('#table_error').dataTable({
+   "bProcessing": true,
+   "bServerSide": true,
+   "sAjaxSource": "/NovaCarteirinha/admin/pendencia/error",
+   "oLanguage": {
+    "sProcessing":   "A processar...",
+    "sLengthMenu":   "Mostrar _MENU_ registos",
+    "sZeroRecords":  "Não foram encontrados resultados",
+    "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registos",
+    "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registos",
+    "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
+    "sInfoPostFix":  "",
+    "sSearch":       "Procurar:",
+    "sUrl":          "",
+    "oPaginate": {
+     "sFirst":    "Primeiro",
+     "sPrevious": "Anterior",
+     "sNext":     "Seguinte",
+     "sLast":     "Último"
+   }
+ },
+
+ "aoColumnDefs" : [{ "aTargets": [ 0 ], "bSortable": false },
+ { "aTargets": [ 1 ], "bSortable": true },
+ { "aTargets": [ 2 ], "bSortable": true },
+ { "aTargets": [ 3 ], "bSortable": false } ]
+
+
+} );
+
+
+  $('#renderingEngineFilter').on( 'change', function () {
+   oTable.fnFilter( $(this).val() );
+ } );
+
+
+
+  $(document).on('click','#table_error tbody td img',function () {
+   var nTr = $(this).parents('tr')[0];
+   if ( oTable.fnIsOpen(nTr) )
+   {
+    /* This row is already open - close it */
+    this.src = "img/details_open.png";
+    oTable.fnClose( nTr );
+  }
+  else
+  {
+    /* Open this row */
+    this.src = "img/details_close.png";
+    oTable.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
+  }
+} );
+
+
+} );

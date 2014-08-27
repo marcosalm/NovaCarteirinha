@@ -14,9 +14,8 @@
     <link href="<?=base_url();?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?=base_url();?>css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?=base_url();?>css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?=base_url();?>css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="<?=base_url();?>css/estilo.css" rel="stylesheet">
-	<link href="<?=base_url();?>css/demo_page.css" rel="stylesheet">
+	<link href="<?=base_url();?>css/demo_table2.css" rel="stylesheet">
 	
 </head>
 <body> 

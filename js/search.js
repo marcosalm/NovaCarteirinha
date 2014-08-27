@@ -14,7 +14,7 @@ $(document).ready(function() {
 		if(query_value !== ''){
 			$.ajax({
 				type: "POST",
-				url: "app/search.php",
+				url: "/NovaCarteirinha/admin/search",
 				data: { query: query_value },
 				cache: false,
 				success: function(html){
