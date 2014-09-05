@@ -24,14 +24,15 @@ class Account_model extends CI_Model {
 			'last_name' => $this->input->post('lname'),
 			'email_address' => $this->input->post('email'),			
 			'username' => $this->input->post('uname'),
-			'password' => md5($this->input->post('pass'))						
+			'password' => md5($this->input->post('pass')),
+			'tipo' =>$this->input->post('tipo')
 		);
 		
 		$simpan_data = $this->db->insert($this->table_name, $data_baru);
 		return $simpan_data;
 	}
 	
-	public function lihat_data($username){
+	public function get_data($username){
 		$query = $this->db->get_where($this->table_name, array($this->pk => $username));
 		return $query->row_array();
 	}

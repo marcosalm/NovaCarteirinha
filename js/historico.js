@@ -1,4 +1,3 @@
-
 $(document).ready(function() {  
 
 	// Icon Click Focus
@@ -14,7 +13,7 @@ $(document).ready(function() {
 		if(query_value !== ''){
 			$.ajax({
 				type: "POST",
-				url: "app/historico.php",
+				url: "/NovaCarteirinha/historico/historico_search",
 				data: { query: query_value },
 				cache: false,
 				success: function(html){
@@ -48,27 +47,4 @@ $(document).ready(function() {
 			$(this).data('timer', setTimeout(search(search_string), 100));
 		};
 	});
-	
-	
-/* 	$("#search").keyup(function(e) {
-	 if(e.keyCode == 13) {
-		// Set Timeout
-		clearTimeout($.data(this, 'timer'));
-
-		// Set Search String
-		var search_string = $('input#search').val();
-
-		// Do Search
-		if (search_string == '') {
-			$("span#results").fadeOut();
-			$('h4#results-text').fadeOut();
-		}else{
-			$("span#results").fadeIn();
-			$('h4#results-text').fadeIn();
-			$(this).data('timer', setTimeout(search, 100));
-		};
-		}
-	}); */
-	
-
 });

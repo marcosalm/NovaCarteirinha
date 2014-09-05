@@ -1,3 +1,6 @@
-	<footer class="footer">
-		<p>Desenvolvido por - DTI- UVV</p>
-    </footer>
+</div>
+<div class="row">    <footer>
+    <hr>
+    Desenvolvido por DTI - UVV
+    </footer>  
+</div>

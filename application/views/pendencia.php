@@ -25,13 +25,7 @@
       </div>  
     </nav>
     <div class="container">
-	  <div class="row">
-      <div>
-		<?= $this->load->view('template/menu'); ?>
-		</div>
- <div class="col-md-12 corpo">
-        <!-- Nav tabs -->
-       
+	       
 <?php 
 	if($this->session->flashdata('msg') != ''){
 		echo '
@@ -46,12 +40,13 @@
         </div>';
 	}    
 ?>  
-      <!--div class="row">
-        <div class="col-md-12"-->
-
-   
+	  <div class="row">
+      <div>
+		<?= $this->load->view('template/menu'); ?>
+		</div>
+ <div class="col-md-12 corpo">
    	
-	  <div class="tab-pane active" id="Consulta">
+	
 	 <h1 class="page-header"> Pendências</h1>
 	 	 <div class="row" >
                 <div class="col-md-12"> 
@@ -60,7 +55,16 @@
       <div class="alert alert-warning ver_erro"><b>Dica:</b> Clique em <img src="img/details_open.png"> para visualizar os erros e suas respectivas correções.</div>
       <p></p>
       <div class="panel panel-danger">
-        <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user"></i> Alunos com erro : <span class="numero-destaque ">XXX</span>
+        <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user"></i> Alunos com erro : <span class="numero-destaque "><?php 
+	$query = $this->db->query("SELECT * FROM crt_status WHERE situacao_cart = 'ERROR'");
+	if ($query->num_rows() > 0)
+		{
+			echo $query->num_rows();
+		} else{
+		
+			echo 0;
+			}
+	?></span>
           <div class="btn-group pull-right">
                         <!--button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" id="">
                           Filtro <span class="caret"></span>
@@ -132,4 +136,6 @@
                 Caracteres permitidos para campos numéricos: números (0 a 9).</div>
 
               </div>
-	   </div>
+	 </div>
+	 
+ 

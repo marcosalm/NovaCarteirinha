@@ -37,3 +37,42 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
         </div> <!-- /modal-footer -->
     </div> <!-- /modal -->
+	
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">Inserir novo usuário</h4>
+        </div>
+        <div class="modal-body">
+          <span id="status_add"></span>
+          <form accept-charset="UTF-8" role="form" id="form-newuser">
+            <fieldset>
+              <div class="form-group">
+                <input class="form-control" placeholder="Nome" name="nome" type="text">
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="E-mail" name="email" type="text">
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="login" name="login" type="text">
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="senha" name="senha" type="password" value="">
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="Confirmar senha" name="senha2" type="password" value="">
+              </div>
+
+            </fieldset>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-dismiss">Cancelar</button>
+          <button type="button" class="btn btn-success" onclick="sendNewUser()">Inserir</button>
+            </script>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>

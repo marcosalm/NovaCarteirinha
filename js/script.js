@@ -109,77 +109,110 @@ $(document).ready(function() {
         $('.search-panel span#search_concept').text(concept);
         $('.input-group #search_param').val(param);
     });
+
+
+    $("div.bhoechie-tab-menu>div.list-group>a").click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+    });
 });
 
+$(function(){
+
+    var ul = $('#upload ul');
+
+    $('#drop a').click(function(){
+        // Simulate a click on the file input button
+        // to show the file browser dialog
+        $(this).parent().find('input').click();
+    });
+
+    // Initialize the jQuery File Upload plugin
+    $('#upload').fileupload({
+
+        // This element will accept file drag/drop uploading
+        dropZone: $('#drop'),
+
+        // This function is called when a file is added to the queue;
+        // either via the browse button, or via drag/drop:
+        add: function (e, data) {
+
+            var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"'+
+                ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><span></span></li>');
+
+            // Append the file name and file size
+            tpl.find('p').text(data.files[0].name)
+                         .append('<i>' + formatFileSize(data.files[0].size) + '</i>');
+
+            // Add the HTML to the UL element
+            data.context = tpl.appendTo(ul);
+
+            // Initialize the knob plugin
+            tpl.find('input').knob();
+
+            // Listen for clicks on the cancel icon
+            tpl.find('span').click(function(){
+
+                if(tpl.hasClass('working')){
+                    jqXHR.abort();
+                }
+
+                tpl.fadeOut(function(){
+                    tpl.remove();
+                });
+
+            });
+
+            // Automatically upload the file once it is added to the queue
+            var jqXHR = data.submit();
+        },
+
+        progress: function(e, data){
+
+            // Calculate the completion percentage of the upload
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+
+            // Update the hidden input field and trigger a change
+            // so that the jQuery knob plugin knows to update the dial
+            data.context.find('input').val(progress).change();
+
+            if(progress == 100){
+                data.context.removeClass('working');
+            }
+        },
+
+        fail:function(e, data){
+            // Something has gone wrong!
+            data.context.addClass('error');
+        }
+
+    });
 
 
+    // Prevent the default action when a file is dropped on the window
+    $(document).on('drop dragover', function (e) {
+        e.preventDefault();
+    });
 
- var oTable
- function fnFormatDetails ( nTr )
- {
-  var aData = oTable.fnGetData( nTr );
+    // Helper function that formats the file sizes
+    function formatFileSize(bytes) {
+        if (typeof bytes !== 'number') {
+            return '';
+        }
 
-  var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
-  sOut += '<tr><td>'+aData['extra']+'</td></tr>';
-  sOut += '</table>';
+        if (bytes >= 1000000000) {
+            return (bytes / 1000000000).toFixed(2) + ' GB';
+        }
 
-  return sOut;
-}
+        if (bytes >= 1000000) {
+            return (bytes / 1000000).toFixed(2) + ' MB';
+        }
 
+        return (bytes / 1000).toFixed(2) + ' KB';
+    }
 
-$(document).ready(function() {
-  oTable = $('#table_error').dataTable({
-   "bProcessing": true,
-   "bServerSide": true,
-   "sAjaxSource": "/NovaCarteirinha/admin/pendencia/error",
-   "oLanguage": {
-    "sProcessing":   "A processar...",
-    "sLengthMenu":   "Mostrar _MENU_ registos",
-    "sZeroRecords":  "Não foram encontrados resultados",
-    "sInfo":         "Mostrando de _START_ até _END_ de _TOTAL_ registos",
-    "sInfoEmpty":    "Mostrando de 0 até 0 de 0 registos",
-    "sInfoFiltered": "(filtrado de _MAX_ registos no total)",
-    "sInfoPostFix":  "",
-    "sSearch":       "Procurar:",
-    "sUrl":          "",
-    "oPaginate": {
-     "sFirst":    "Primeiro",
-     "sPrevious": "Anterior",
-     "sNext":     "Seguinte",
-     "sLast":     "Último"
-   }
- },
-
- "aoColumnDefs" : [{ "aTargets": [ 0 ], "bSortable": false },
- { "aTargets": [ 1 ], "bSortable": true },
- { "aTargets": [ 2 ], "bSortable": true },
- { "aTargets": [ 3 ], "bSortable": false } ]
-
-
-} );
-
-
-  $('#renderingEngineFilter').on( 'change', function () {
-   oTable.fnFilter( $(this).val() );
- } );
-
-
-
-  $(document).on('click','#table_error tbody td img',function () {
-   var nTr = $(this).parents('tr')[0];
-   if ( oTable.fnIsOpen(nTr) )
-   {
-    /* This row is already open - close it */
-    this.src = "img/details_open.png";
-    oTable.fnClose( nTr );
-  }
-  else
-  {
-    /* Open this row */
-    this.src = "img/details_close.png";
-    oTable.fnOpen( nTr, fnFormatDetails(nTr), 'details' );
-  }
-} );
-
-
-} );
+});

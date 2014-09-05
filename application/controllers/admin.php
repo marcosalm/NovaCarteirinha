@@ -1,27 +1,40 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of Admin
+ *
+ * @author marcos.almeida
+ */
+
 class Admin extends CI_Controller 
 {
-	/* Admin Controller
-	 *
-	 * @author	Marcos Almeida
-	 * @link	http://uvv.br
-	*/
+	
 	public function __construct(){
 		parent::__construct();
 		$this->is_logged_in();
 	}
 
 	public function index(){
-		$data['content'] = 'admin';
-		$data['page'] = 'admin';
-		
-		$this->load->view('template/index', $data);
+            $this->load->model('status_model');
+            $data['ERROR'] = $this->status_model->total_ERROR();
+            $data['OK'] = $this->status_model->total_OK();
+            $data['PROCESS'] = $this->status_model->total_PROCESS();
+            $data['PREVISAO'] = $this->status_model->previsao_PROCESS();
+            $data['A_ENVIAR'] = $this->status_model->total_A_ENVIAR();
+            $data['content'] = 'admin';
+            $data['page'] = 'admin';
+            $this->load->view('template/index', $data);
 	}
 	
 	public function view_account(){
 		$this->load->model('account_model');		
-		$data['account'] = $this->account_model->lihat_data($this->session->userdata('username'));			
+		$data['account'] = $this->account_model->get_data($this->session->userdata('username'));			
 		$data['content'] = 'user_detail';
 		$this->load->view('template/index', $data);
 	}

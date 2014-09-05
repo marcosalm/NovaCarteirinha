@@ -38,21 +38,48 @@
 |
 */
 
-$route['admin/logout'] = "login/logout";
+$route['admin/logout'] = "home/logout";
+
 $route['admin/detail'] = "admin/view_account";
+
 $route['admin'] = "admin";
+
 $route['admin/search'] = "search/student_search";
 
-$route['admin/pendencia/error'] = "pendencia/dataTableError";
-$route['pendencia'] = "pendencia";
+$route['admin/pendencia/error'] = "search/dataTableError";
 
-$route['signout'] = "login/logout";
+$route['limbo/error'] = "limbo/error";
 
-$route['signin'] = "login/cek_login";
-$route['signup'] = "login/signup";
-$route[':any'] = "login";
+$route['limbo'] = "limbo";
 
-$route['default_controller'] = "login";
+$route['pos_e_pesquisa'] = "limbo";
+
+$route['pos_e_pesquisa/limbo_search'] = "search/limbo_search";
+
+$route['historico'] = "historico";
+$route['historico/lista_lotes'] = "historico/lista_lotes";
+$route['historico/historico_search'] = "historico/historico_search";
+
+$route['configuracao'] = "configuracao";
+
+$route['configuracao/emailRetorno'] = "configuracao/emailRetorno";
+
+$route['configuracao/uploadRetorno'] = "configuracao/uploadRetorno";
+
+$route['envioDeFotos/retornoFotos'] = "configuracao/retornoFotos";
+
+$route['historico/confirmar_chegada_carteirinhas/(:num)'] = "historico/confirmar_chegada_carteirinhas/$1";
+
+$route['configuracao/multiupload'] = "configuracao/multiupload";
+ 
+$route['signout'] = "home/logout";
+
+$route['signin'] = "home/my_login";
+
+$route[':any'] = "home";
+
+$route['default_controller'] = "home";
+
 $route['404_override'] = '';
 
 
